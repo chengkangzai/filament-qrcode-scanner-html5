@@ -1,6 +1,6 @@
 <?php
 
-namespace Pixalink\FilamentQrcodeScannerHtml5;
+namespace CCK\FilamentQrcodeScannerHtml5;
 
 use Filament\Contracts\Plugin;
 use Filament\Panel;

@@ -1,11 +1,11 @@
 <?php
 
-namespace Pixalink\FilamentQrcodeScannerHtml5;
+namespace CCK\FilamentQrcodeScannerHtml5;
 
+use CCK\FilamentQrcodeScannerHtml5\Enums\BarcodeFormat;
 use Closure;
 use Filament\Forms\Components\Actions\Action;
 use Illuminate\Support\HtmlString;
-use Pixalink\FilamentQrcodeScannerHtml5\Enums\BarcodeFormat;
 
 class BarcodeScannerAction extends Action
 {

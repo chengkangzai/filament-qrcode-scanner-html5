@@ -1,8 +1,8 @@
 # Filament QR Code Scanner (html5-qrcode)
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/pixalink/filament-qrcode-scanner-html5.svg?style=flat-square)](https://packagist.org/packages/pixalink/filament-qrcode-scanner-html5)
-[![Total Downloads](https://img.shields.io/packagist/dt/pixalink/filament-qrcode-scanner-html5.svg?style=flat-square)](https://packagist.org/packages/pixalink/filament-qrcode-scanner-html5)
-[![License](https://img.shields.io/packagist/l/pixalink/filament-qrcode-scanner-html5.svg?style=flat-square)](https://packagist.org/packages/pixalink/filament-qrcode-scanner-html5)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/cck/filament-qrcode-scanner-html5.svg?style=flat-square)](https://packagist.org/packages/cck/filament-qrcode-scanner-html5)
+[![Total Downloads](https://img.shields.io/packagist/dt/cck/filament-qrcode-scanner-html5.svg?style=flat-square)](https://packagist.org/packages/cck/filament-qrcode-scanner-html5)
+[![License](https://img.shields.io/packagist/l/cck/filament-qrcode-scanner-html5.svg?style=flat-square)](https://packagist.org/packages/cck/filament-qrcode-scanner-html5)
 
 A Filament form action for scanning barcodes and QR codes using the device camera. Built with the [html5-qrcode](https://github.com/mebjas/html5-qrcode) library.
 
@@ -28,7 +28,7 @@ A Filament form action for scanning barcodes and QR codes using the device camer
 Install the package via Composer:
 
 ```bash
-composer require pixalink/filament-qrcode-scanner-html5
+composer require cck/filament-qrcode-scanner-html5
 ```
 
 The package will auto-register its service provider.
@@ -40,7 +40,7 @@ The package will auto-register its service provider.
 Add the `BarcodeScannerAction` as a suffix action to any text input:
 
 ```php
-use Pixalink\FilamentQrcodeScannerHtml5\BarcodeScannerAction;
+use CCK\FilamentQrcodeScannerHtml5\BarcodeScannerAction;
 
 TextInput::make('barcode')
     ->suffixAction(BarcodeScannerAction::make())
@@ -51,8 +51,8 @@ TextInput::make('barcode')
 Restrict scanning to specific barcode formats:
 
 ```php
-use Pixalink\FilamentQrcodeScannerHtml5\BarcodeScannerAction;
-use Pixalink\FilamentQrcodeScannerHtml5\Enums\BarcodeFormat;
+use CCK\FilamentQrcodeScannerHtml5\BarcodeScannerAction;
+use CCK\FilamentQrcodeScannerHtml5\Enums\BarcodeFormat;
 
 TextInput::make('product_code')
     ->suffixAction(
@@ -70,8 +70,8 @@ TextInput::make('product_code')
 Use a PHP closure to transform the scanned value server-side:
 
 ```php
-use Pixalink\FilamentQrcodeScannerHtml5\BarcodeScannerAction;
-use Pixalink\FilamentQrcodeScannerHtml5\Enums\BarcodeFormat;
+use CCK\FilamentQrcodeScannerHtml5\BarcodeScannerAction;
+use CCK\FilamentQrcodeScannerHtml5\Enums\BarcodeFormat;
 
 TextInput::make('barcode')
     ->suffixAction(
@@ -90,7 +90,7 @@ TextInput::make('barcode')
 Use a JavaScript function to transform the scanned value client-side:
 
 ```php
-use Pixalink\FilamentQrcodeScannerHtml5\BarcodeScannerAction;
+use CCK\FilamentQrcodeScannerHtml5\BarcodeScannerAction;
 
 TextInput::make('barcode')
     ->suffixAction(
@@ -104,7 +104,7 @@ Format IDs for JavaScript: QR=0, PDF417=10, Code39=4, Code128=6, DataMatrix=12, 
 ### Customize Labels and Messages
 
 ```php
-use Pixalink\FilamentQrcodeScannerHtml5\BarcodeScannerAction;
+use CCK\FilamentQrcodeScannerHtml5\BarcodeScannerAction;
 
 TextInput::make('barcode')
     ->suffixAction(

@@ -1,12 +1,12 @@
 <?php
 
-namespace Pixalink\FilamentQrcodeScannerHtml5;
+namespace CCK\FilamentQrcodeScannerHtml5;
 
+use CCK\FilamentQrcodeScannerHtml5\Enums\BarcodeFormat;
 use Closure;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use Laravel\SerializableClosure\SerializableClosure;
-use Pixalink\FilamentQrcodeScannerHtml5\Enums\BarcodeFormat;
 
 class BarcodeScannerCallbackRegistry
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Pixalink\FilamentQrcodeScannerHtml5\Enums;
+namespace CCK\FilamentQrcodeScannerHtml5\Enums;
 
 /**
  * Barcode formats supported by the html5-qrcode library.

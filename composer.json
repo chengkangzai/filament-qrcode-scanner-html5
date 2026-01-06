@@ -1,5 +1,5 @@
 {
-    "name": "pixalink/filament-qrcode-scanner-html5",
+    "name": "cck/filament-qrcode-scanner-html5",
     "description": "A Filament form action for scanning barcodes and QR codes using the device camera with html5-qrcode library",
     "keywords": [
         "laravel",
@@ -31,18 +31,18 @@
     },
     "autoload": {
         "psr-4": {
-            "Pixalink\\FilamentQrcodeScannerHtml5\\": "src/"
+            "CCK\\FilamentQrcodeScannerHtml5\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Pixalink\\FilamentQrcodeScannerHtml5\\Tests\\": "tests/"
+            "CCK\\FilamentQrcodeScannerHtml5\\Tests\\": "tests/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Pixalink\\FilamentQrcodeScannerHtml5\\BarcodeScannerServiceProvider"
+                "CCK\\FilamentQrcodeScannerHtml5\\BarcodeScannerServiceProvider"
             ]
         }
     },

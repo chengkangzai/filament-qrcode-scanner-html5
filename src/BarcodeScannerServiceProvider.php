@@ -1,9 +1,11 @@
 <?php
 
-namespace Pixalink\FilamentQrcodeScannerHtml5;
+namespace CCK\FilamentQrcodeScannerHtml5;
 
+use CCK\FilamentQrcodeScannerHtml5\Enums\BarcodeFormat;
 use Illuminate\Support\ServiceProvider;
-use Pixalink\FilamentQrcodeScannerHtml5\Enums\BarcodeFormat;
+
+use function Livewire\on;
 
 class BarcodeScannerServiceProvider extends ServiceProvider
 {
@@ -25,7 +27,7 @@ class BarcodeScannerServiceProvider extends ServiceProvider
 
     protected function registerLivewireHook(): void
     {
-        \Livewire\on('call', function ($component, $method, $params, $addEffect, $returnEarly) {
+        on('call', function ($component, $method, $params, $addEffect, $returnEarly) {
             if ($method !== 'processBarcodeScan') {
                 return function () {};
             }
