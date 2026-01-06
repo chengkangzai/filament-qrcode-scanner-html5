@@ -1,0 +1,57 @@
+{
+    "name": "pixalink/filament-qrcode-scanner-html5",
+    "description": "A Filament form action for scanning barcodes and QR codes using the device camera with html5-qrcode library",
+    "keywords": [
+        "laravel",
+        "filament",
+        "barcode",
+        "qrcode",
+        "scanner",
+        "camera",
+        "html5-qrcode"
+    ],
+    "homepage": "https://github.com/nicholaschun/filament-qrcode-scanner-html5",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Nicholas Chun",
+            "email": "nicholas@pixalink.io",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.1",
+        "filament/filament": "^3.0",
+        "livewire/livewire": "^3.0",
+        "laravel/serializable-closure": "^1.0|^2.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^8.0|^9.0",
+        "pestphp/pest": "^2.0|^3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Pixalink\\FilamentQrcodeScannerHtml5\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Pixalink\\FilamentQrcodeScannerHtml5\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Pixalink\\FilamentQrcodeScannerHtml5\\BarcodeScannerServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
