@@ -204,10 +204,13 @@
         }
     },
 
-    onScanSuccess(decodedText, decodedResult) {
+    async onScanSuccess(decodedText, decodedResult) {
         const sanitizedText = this.sanitizeScannedText(decodedText);
         const formatId = decodedResult?.result?.format?.format ?? 0;
-        this.stopScanning();
+
+        // Stop camera first, then wait a moment for media cleanup
+        await this.stopScanning();
+        await new Promise(resolve => setTimeout(resolve, 50));
 
         if (this.callbackId) {
             // PHP closure via Livewire
