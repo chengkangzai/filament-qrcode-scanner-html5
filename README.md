@@ -1,8 +1,8 @@
 # Filament QR Code Scanner (html5-qrcode)
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/cck/filament-qrcode-scanner-html5.svg?style=flat-square)](https://packagist.org/packages/cck/filament-qrcode-scanner-html5)
-[![Total Downloads](https://img.shields.io/packagist/dt/cck/filament-qrcode-scanner-html5.svg?style=flat-square)](https://packagist.org/packages/cck/filament-qrcode-scanner-html5)
-[![License](https://img.shields.io/packagist/l/cck/filament-qrcode-scanner-html5.svg?style=flat-square)](https://packagist.org/packages/cck/filament-qrcode-scanner-html5)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/chengkangzai/filament-qrcode-scanner-html5.svg?style=flat-square)](https://packagist.org/packages/chengkangzai/filament-qrcode-scanner-html5)
+[![Total Downloads](https://img.shields.io/packagist/dt/chengkangzai/filament-qrcode-scanner-html5.svg?style=flat-square)](https://packagist.org/packages/chengkangzai/filament-qrcode-scanner-html5)
+[![License](https://img.shields.io/packagist/l/chengkangzai/filament-qrcode-scanner-html5.svg?style=flat-square)](https://packagist.org/packages/chengkangzai/filament-qrcode-scanner-html5)
 
 A Filament form action for scanning barcodes and QR codes using the device camera. Built with the [html5-qrcode](https://github.com/mebjas/html5-qrcode) library.
 
@@ -28,7 +28,7 @@ A Filament form action for scanning barcodes and QR codes using the device camer
 Install the package via Composer:
 
 ```bash
-composer require cck/filament-qrcode-scanner-html5
+composer require chengkangzai/filament-qrcode-scanner-html5
 ```
 
 The package will auto-register its service provider.

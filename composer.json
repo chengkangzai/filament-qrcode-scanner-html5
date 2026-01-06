@@ -1,5 +1,5 @@
 {
-    "name": "cck/filament-qrcode-scanner-html5",
+    "name": "chengkangzai/filament-qrcode-scanner-html5",
     "description": "A Filament form action for scanning barcodes and QR codes using the device camera with html5-qrcode library",
     "keywords": [
         "laravel",
