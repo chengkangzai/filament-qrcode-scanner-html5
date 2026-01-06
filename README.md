@@ -151,11 +151,11 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## Security
 
-If you discover any security-related issues, please email nicholas@pixalink.io instead of using the issue tracker.
+If you discover any security-related issues, please email pycck@hotmail.com instead of using the issue tracker.
 
 ## Credits
 
-- [Nicholas Chun](https://github.com/chengkangzai)
+- [CCK](https://github.com/chengkangzai)
 - [html5-qrcode](https://github.com/mebjas/html5-qrcode) by Minhaz
 
 ## License
