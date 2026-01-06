@@ -155,7 +155,7 @@ If you discover any security-related issues, please email nicholas@pixalink.io i
 
 ## Credits
 
-- [Nicholas Chun](https://github.com/nicholaschun)
+- [Nicholas Chun](https://github.com/chengkangzai)
 - [html5-qrcode](https://github.com/mebjas/html5-qrcode) by Minhaz
 
 ## License
