@@ -3,6 +3,7 @@
 namespace CCK\FilamentQrcodeScannerHtml5;
 
 use CCK\FilamentQrcodeScannerHtml5\Enums\BarcodeFormat;
+use Filament\Forms\Components\Component as FormComponent;
 use Illuminate\Support\ServiceProvider;
 
 use function Livewire\on;
@@ -29,17 +30,47 @@ class BarcodeScannerServiceProvider extends ServiceProvider
     {
         on('call', function ($component, $method, $params, $addEffect, $returnEarly) {
             if ($method !== 'processBarcodeScan') {
-                return function () {};
+                return;
             }
 
-            [$callbackId, $value, $formatId] = $params;
+            [$statePath, $value, $formatId] = $params;
 
-            $format = BarcodeFormat::fromHtml5QrcodeFormat((int) $formatId);
-            $result = BarcodeScannerCallbackRegistry::execute($callbackId, (string) $value, $format);
+            if (! method_exists($component, 'getCachedForms')) {
+                $returnEarly($value);
 
-            $returnEarly($result);
+                return;
+            }
 
-            return function () {};
+            foreach ($component->getCachedForms() as $form) {
+                $formComponent = $form->getComponent(
+                    fn (FormComponent $c) => $c->getStatePath() === $statePath
+                );
+
+                if (! $formComponent) {
+                    continue;
+                }
+
+                $action = $formComponent->getAction('barcode-scanner');
+
+                if (! $action instanceof BarcodeScannerAction) {
+                    continue;
+                }
+
+                $callback = $action->getStateModifierPhp();
+
+                if (! $callback) {
+                    $returnEarly($value);
+
+                    return;
+                }
+
+                $format = BarcodeFormat::fromHtml5QrcodeFormat((int) $formatId);
+                $returnEarly($callback((string) $value, $format));
+
+                return;
+            }
+
+            $returnEarly($value);
         });
     }
 }

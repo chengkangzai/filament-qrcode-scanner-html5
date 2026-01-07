@@ -51,15 +51,10 @@ class BarcodeScannerAction extends Action
                 $component = $this->getComponent();
                 $statePath = $component?->getStatePath();
 
-                $callbackId = null;
-                if ($this->stateModifierPhp) {
-                    $callbackId = BarcodeScannerCallbackRegistry::register($this->stateModifierPhp);
-                }
-
                 return new HtmlString(
                     view('filament-qrcode-scanner-html5::barcode-scanner-modal', [
                         'statePath' => $statePath,
-                        'callbackId' => $callbackId,
+                        'hasPhpModifier' => $this->stateModifierPhp !== null,
                         'stateModifierJs' => $this->stateModifierJs,
                         'supportedFormats' => $this->getHtml5QrcodeFormatIds(),
                         'switchCameraLabel' => __($this->switchCameraLabel),
@@ -132,6 +127,14 @@ class BarcodeScannerAction extends Action
         $this->stateModifierPhp = $callback;
 
         return $this;
+    }
+
+    /**
+     * @return Closure(string, ?BarcodeFormat): string|null
+     */
+    public function getStateModifierPhp(): ?Closure
+    {
+        return $this->stateModifierPhp;
     }
 
     public function switchCameraLabel(string $label): static

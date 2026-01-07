@@ -1,6 +1,6 @@
 <div x-data="{
     statePath: @js($statePath),
-    callbackId: @js($callbackId ?? null),
+    hasPhpModifier: @js($hasPhpModifier ?? false),
     stateModifierJs: @js($stateModifierJs),
     supportedFormats: @js($supportedFormats),
     messages: {
@@ -212,9 +212,9 @@
         await this.stopScanning();
         await new Promise(resolve => setTimeout(resolve, 50));
 
-        if (this.callbackId) {
+        if (this.hasPhpModifier) {
             // PHP closure via Livewire
-            $wire.call('processBarcodeScan', this.callbackId, sanitizedText, formatId)
+            $wire.processBarcodeScan(this.statePath, sanitizedText, formatId)
                 .then(modifiedValue => {
                     if (this.statePath) {
                         $wire.set(this.statePath, modifiedValue);
