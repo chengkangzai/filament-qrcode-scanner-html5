@@ -1,6 +1,7 @@
 # Filament QR Code Scanner (html5-qrcode)
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/chengkangzai/filament-qrcode-scanner-html5.svg?style=flat-square)](https://packagist.org/packages/chengkangzai/filament-qrcode-scanner-html5)
+[![Tests](https://github.com/chengkangzai/filament-qrcode-scanner-html5/actions/workflows/tests.yml/badge.svg)](https://github.com/chengkangzai/filament-qrcode-scanner-html5/actions/workflows/tests.yml)
 [![Total Downloads](https://img.shields.io/packagist/dt/chengkangzai/filament-qrcode-scanner-html5.svg?style=flat-square)](https://packagist.org/packages/chengkangzai/filament-qrcode-scanner-html5)
 [![License](https://img.shields.io/packagist/l/chengkangzai/filament-qrcode-scanner-html5.svg?style=flat-square)](https://packagist.org/packages/chengkangzai/filament-qrcode-scanner-html5)
 
