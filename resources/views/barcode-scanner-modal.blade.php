@@ -1,5 +1,6 @@
 <div x-data="{
     statePath: @js($statePath),
+    isHeaderAction: @js($isHeaderAction ?? false),
     hasPhpModifier: @js($hasPhpModifier ?? false),
     stateModifierJs: @js($stateModifierJs),
     supportedFormats: @js($supportedFormats),
@@ -212,8 +213,18 @@
         await this.stopScanning();
         await new Promise(resolve => setTimeout(resolve, 50));
 
-        if (this.hasPhpModifier) {
-            // PHP closure via Livewire
+        if (this.isHeaderAction) {
+            // Header action - custom callback with redirect support
+            $wire.processBarcodeScanHeader(sanitizedText, formatId)
+                .then(response => {
+                    if (response && response.redirect) {
+                        window.location.href = response.redirect;
+                        return;
+                    }
+                    this.closeModal();
+                });
+        } else if (this.hasPhpModifier) {
+            // Form action - PHP closure via Livewire
             $wire.processBarcodeScan(this.statePath, sanitizedText, formatId)
                 .then(modifiedValue => {
                     if (this.statePath) {
@@ -222,7 +233,7 @@
                     this.closeModal();
                 });
         } else {
-            // JS modifier or no modifier
+            // Form action - JS modifier or no modifier
             const modifiedValue = this.applyStateModifier(sanitizedText, formatId);
             if (this.statePath) {
                 $wire.set(this.statePath, modifiedValue);
@@ -232,10 +243,16 @@
     },
 
     closeModal() {
-        if (typeof $wire.unmountFormComponentAction === 'function') {
-            $wire.unmountFormComponentAction(false);
-        } else if (typeof $wire.unmountAction === 'function') {
-            $wire.unmountAction(false);
+        if (this.isHeaderAction) {
+            if (typeof $wire.unmountAction === 'function') {
+                $wire.unmountAction(false);
+            }
+        } else {
+            if (typeof $wire.unmountFormComponentAction === 'function') {
+                $wire.unmountFormComponentAction(false);
+            } else if (typeof $wire.unmountAction === 'function') {
+                $wire.unmountAction(false);
+            }
         }
     },
 

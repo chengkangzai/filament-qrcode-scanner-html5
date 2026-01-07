@@ -28,6 +28,12 @@ class BarcodeScannerServiceProvider extends ServiceProvider
 
     protected function registerLivewireHook(): void
     {
+        $this->registerFormActionHook();
+        $this->registerHeaderActionHook();
+    }
+
+    protected function registerFormActionHook(): void
+    {
         on('call', function ($component, $method, $params, $addEffect, $returnEarly) {
             if ($method !== 'processBarcodeScan') {
                 return;
@@ -72,5 +78,87 @@ class BarcodeScannerServiceProvider extends ServiceProvider
 
             $returnEarly($value);
         });
+    }
+
+    protected function registerHeaderActionHook(): void
+    {
+        on('call', function ($component, $method, $params, $addEffect, $returnEarly) {
+            if ($method !== 'processBarcodeScanHeader') {
+                return;
+            }
+
+            [$value, $formatId] = $params;
+
+            if (! method_exists($component, 'getMountedAction')) {
+                $returnEarly(['success' => false]);
+
+                return;
+            }
+
+            $action = $component->getMountedAction();
+
+            if (! $action instanceof BarcodeScannerHeaderAction) {
+                $returnEarly(['success' => false]);
+
+                return;
+            }
+
+            $callback = $action->getAfterScanCallback();
+
+            if (! $callback) {
+                $returnEarly(['success' => true, 'value' => $value]);
+
+                return;
+            }
+
+            $format = BarcodeFormat::fromHtml5QrcodeFormat((int) $formatId);
+            $result = $callback((string) $value, $format);
+
+            $returnEarly($this->normalizeHeaderActionResult($result));
+        });
+    }
+
+    /**
+     * Normalize the result from afterScan callback to a format JavaScript can handle.
+     *
+     * @return array{success: bool, redirect?: string}
+     */
+    protected function normalizeHeaderActionResult(mixed $result): array
+    {
+        // Handle RedirectResponse
+        if ($result instanceof \Illuminate\Http\RedirectResponse) {
+            return [
+                'success' => true,
+                'redirect' => $result->getTargetUrl(),
+            ];
+        }
+
+        // Handle Responsable (e.g., Filament's Redirect)
+        if ($result instanceof \Illuminate\Contracts\Support\Responsable) {
+            $response = $result->toResponse(request());
+
+            if ($response instanceof \Illuminate\Http\RedirectResponse) {
+                return [
+                    'success' => true,
+                    'redirect' => $response->getTargetUrl(),
+                ];
+            }
+        }
+
+        // Handle string URL
+        if (is_string($result)) {
+            return [
+                'success' => true,
+                'redirect' => $result,
+            ];
+        }
+
+        // Handle array (already in correct format)
+        if (is_array($result)) {
+            return $result;
+        }
+
+        // Default: just close modal
+        return ['success' => true];
     }
 }

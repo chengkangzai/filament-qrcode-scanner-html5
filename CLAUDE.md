@@ -29,19 +29,35 @@ vendor/bin/pest --filter="can set supported formats"
 
 ### Core Components
 
-- **`BarcodeScannerAction`** (`src/BarcodeScannerAction.php`): The main Filament form action that extends `Filament\Forms\Components\Actions\Action`. Provides the suffix action button for text inputs with configuration methods for formats, labels, and value transformation.
+- **`BarcodeScannerAction`** (`src/BarcodeScannerAction.php`): Filament form action that extends `Filament\Forms\Components\Actions\Action`. Provides the suffix action button for text inputs with configuration methods for formats, labels, and value transformation.
 
-- **`BarcodeScannerServiceProvider`** (`src/BarcodeScannerServiceProvider.php`): Registers views and a Livewire `on('call', ...)` hook that intercepts `processBarcodeScan` calls to execute PHP closures stored on the action.
+- **`BarcodeScannerHeaderAction`** (`src/BarcodeScannerHeaderAction.php`): Filament header/page action that extends `Filament\Actions\Action`. Use this for standalone scanning (e.g., attendance check-in) with custom callbacks that can redirect or show notifications.
+
+- **`BarcodeScannerServiceProvider`** (`src/BarcodeScannerServiceProvider.php`): Registers views and Livewire `on('call', ...)` hooks that intercept `processBarcodeScan` (form) and `processBarcodeScanHeader` (header) calls.
 
 - **`BarcodeFormat`** (`src/Enums/BarcodeFormat.php`): Backed enum mapping barcode format names to html5-qrcode format IDs (e.g., `QRCode = 0`, `Code128 = 6`).
 
-### Value Transformation Flow
+### Form Action Value Transformation
 
-Two approaches for transforming scanned values:
+Two approaches for transforming scanned values in form actions:
 
 1. **JavaScript (client-side):** `->modifyStateUsingJs("(value, formatId) => ...")` - Executed immediately in the browser via the Blade view's Alpine.js component.
 
 2. **PHP (server-side):** `->modifyStateUsing(fn ($value, $format) => ...)` - Closure is stored on the action instance. When scan completes, the view calls `$wire.processBarcodeScan(statePath, value, formatId)`. The Livewire hook intercepts this, finds the form component by statePath, retrieves the action's callback via `getStateModifierPhp()`, and executes it.
+
+### Header Action Flow
+
+For standalone header actions using `BarcodeScannerHeaderAction`:
+
+1. **`->afterScan(fn ($value, $format) => ...)`** - Callback executes after scan. Can return:
+   - `redirect('/url')` or `redirect()->route('name', $params)` - Laravel redirect
+   - `'/url'` - String URL
+   - `['redirect' => '/url']` - Array format
+   - `null` - Just close the modal
+
+2. When scan completes, the view calls `$wire.processBarcodeScanHeader(value, formatId)`. The Livewire hook intercepts this, finds the mounted action, executes the callback, and normalizes the result.
+
+3. If the result contains a redirect URL, the browser redirects. Otherwise, the modal closes.
 
 ### Frontend
 
