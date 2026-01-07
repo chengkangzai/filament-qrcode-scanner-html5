@@ -13,6 +13,7 @@ A Filament form action for scanning barcodes and QR codes using the device camer
 - Works on mobile and desktop devices with camera access
 - Automatic camera switching (front/back)
 - Transform scanned values with PHP closures or JavaScript functions
+- **Header action support** for standalone scanning (e.g., attendance check-in)
 - Fully customizable labels and error messages
 - Dark mode support
 - Accessible with ARIA labels
@@ -115,6 +116,48 @@ TextInput::make('barcode')
             ->permissionDeniedMessage('Please allow camera access in your browser settings.')
     )
 ```
+
+### Header Action (Standalone Scanning)
+
+Use `BarcodeScannerHeaderAction` for standalone scanning without a form field, such as attendance check-in or inventory lookup:
+
+```php
+use CCK\FilamentQrcodeScannerHtml5\BarcodeScannerHeaderAction;
+use CCK\FilamentQrcodeScannerHtml5\Enums\BarcodeFormat;
+use Filament\Notifications\Notification;
+
+// In your Filament Resource page (ListRecords, ViewRecord, etc.)
+protected function getHeaderActions(): array
+{
+    return [
+        BarcodeScannerHeaderAction::make()
+            ->label('Scan Attendance')
+            ->afterScan(function (string $value, ?BarcodeFormat $format) {
+                $user = User::where('qr_code', $value)->first();
+
+                if (! $user) {
+                    Notification::make()
+                        ->title('User not found')
+                        ->danger()
+                        ->send();
+
+                    return null; // Just close the modal
+                }
+
+                // Mark attendance
+                $user->attendances()->create(['checked_in_at' => now()]);
+
+                // Redirect to user page
+                return redirect()->route('filament.admin.resources.users.view', $user);
+            }),
+    ];
+}
+```
+
+The `afterScan` callback can return:
+- `redirect('/url')` or `redirect()->route('name', $params)` - Redirect to a URL
+- `'/url'` - String URL to redirect
+- `null` - Just close the modal (useful after showing a notification)
 
 ## Supported Barcode Formats
 
