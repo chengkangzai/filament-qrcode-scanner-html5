@@ -2,6 +2,7 @@
 
 namespace CCK\FilamentQrcodeScannerHtml5;
 
+use CCK\FilamentQrcodeScannerHtml5\Concerns\HasScannerConfiguration;
 use CCK\FilamentQrcodeScannerHtml5\Enums\BarcodeFormat;
 use Closure;
 use Filament\Forms\Components\Actions\Action;
@@ -9,14 +10,7 @@ use Illuminate\Support\HtmlString;
 
 class BarcodeScannerAction extends Action
 {
-    /** @var array<BarcodeFormat> */
-    protected array $supportedFormats = [];
-
-    protected string $switchCameraLabel = 'Switch Camera';
-
-    protected string $cameraUnavailableMessage = 'Camera is not available. Please check your device settings.';
-
-    protected string $permissionDeniedMessage = 'Camera permission was denied. Please allow camera access to scan barcodes.';
+    use HasScannerConfiguration;
 
     /**
      * JavaScript function string to transform the scanned value.
@@ -57,36 +51,11 @@ class BarcodeScannerAction extends Action
                         'hasPhpModifier' => $this->stateModifierPhp !== null,
                         'stateModifierJs' => $this->stateModifierJs,
                         'supportedFormats' => $this->getHtml5QrcodeFormatIds(),
-                        'switchCameraLabel' => __($this->switchCameraLabel),
-                        'cameraUnavailableMessage' => __($this->cameraUnavailableMessage),
-                        'permissionDeniedMessage' => __($this->permissionDeniedMessage),
+                        'scannerConfig' => $this->getScannerConfig(),
+                        'labels' => $this->getLabels(),
                     ])->render()
                 );
             });
-    }
-
-    /**
-     * Set supported barcode formats for scanning.
-     *
-     * @param  array<BarcodeFormat>  $formats
-     */
-    public function supportedFormats(array $formats): static
-    {
-        $this->supportedFormats = $formats;
-
-        return $this;
-    }
-
-    /**
-     * @return array<BarcodeFormat>
-     */
-    public function getSupportedFormats(): array
-    {
-        if (empty($this->supportedFormats)) {
-            return BarcodeFormat::cases();
-        }
-
-        return $this->supportedFormats;
     }
 
     /**
@@ -135,37 +104,5 @@ class BarcodeScannerAction extends Action
     public function getStateModifierPhp(): ?Closure
     {
         return $this->stateModifierPhp;
-    }
-
-    public function switchCameraLabel(string $label): static
-    {
-        $this->switchCameraLabel = $label;
-
-        return $this;
-    }
-
-    public function cameraUnavailableMessage(string $message): static
-    {
-        $this->cameraUnavailableMessage = $message;
-
-        return $this;
-    }
-
-    public function permissionDeniedMessage(string $message): static
-    {
-        $this->permissionDeniedMessage = $message;
-
-        return $this;
-    }
-
-    /**
-     * @return array<int>
-     */
-    protected function getHtml5QrcodeFormatIds(): array
-    {
-        return array_map(
-            fn (BarcodeFormat $format) => $format->value,
-            $this->getSupportedFormats()
-        );
     }
 }

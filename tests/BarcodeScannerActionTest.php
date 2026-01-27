@@ -81,3 +81,66 @@ it('supports all common barcode formats', function () {
 
     expect($action->getSupportedFormats())->toBe($commonFormats);
 });
+
+it('can set fps', function () {
+    $action = BarcodeScannerAction::make()
+        ->fps(20);
+
+    expect($action)->toBeInstanceOf(BarcodeScannerAction::class);
+});
+
+it('can set qrbox', function () {
+    $action = BarcodeScannerAction::make()
+        ->qrbox(250);
+
+    expect($action)->toBeInstanceOf(BarcodeScannerAction::class);
+});
+
+it('can set rectangular qrbox', function () {
+    $action = BarcodeScannerAction::make()
+        ->qrbox(300, 200);
+
+    expect($action)->toBeInstanceOf(BarcodeScannerAction::class);
+});
+
+it('can set aspect ratio', function () {
+    $action = BarcodeScannerAction::make()
+        ->aspectRatio(1.777778);
+
+    expect($action)->toBeInstanceOf(BarcodeScannerAction::class);
+});
+
+it('can prefer back camera', function () {
+    $action = BarcodeScannerAction::make()
+        ->preferBackCamera();
+
+    expect($action)->toBeInstanceOf(BarcodeScannerAction::class);
+});
+
+it('can prefer front camera', function () {
+    $action = BarcodeScannerAction::make()
+        ->preferFrontCamera();
+
+    expect($action)->toBeInstanceOf(BarcodeScannerAction::class);
+});
+
+it('can set facing mode', function () {
+    $action = BarcodeScannerAction::make()
+        ->facingMode('environment');
+
+    expect($action)->toBeInstanceOf(BarcodeScannerAction::class);
+});
+
+it('can chain all new configuration methods', function () {
+    $action = BarcodeScannerAction::make()
+        ->fps(15)
+        ->qrbox(250, 250)
+        ->aspectRatio(1.5)
+        ->preferBackCamera()
+        ->supportedFormats([BarcodeFormat::QRCode])
+        ->switchCameraLabel('Toggle')
+        ->cameraUnavailableMessage('No camera')
+        ->permissionDeniedMessage('Denied');
+
+    expect($action)->toBeInstanceOf(BarcodeScannerAction::class);
+});

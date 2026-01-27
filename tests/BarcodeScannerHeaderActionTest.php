@@ -108,3 +108,67 @@ it('supports all common barcode formats', function () {
 
     expect($action->getSupportedFormats())->toBe($commonFormats);
 });
+
+it('can set fps', function () {
+    $action = BarcodeScannerHeaderAction::make()
+        ->fps(20);
+
+    expect($action)->toBeInstanceOf(BarcodeScannerHeaderAction::class);
+});
+
+it('can set qrbox', function () {
+    $action = BarcodeScannerHeaderAction::make()
+        ->qrbox(250);
+
+    expect($action)->toBeInstanceOf(BarcodeScannerHeaderAction::class);
+});
+
+it('can set rectangular qrbox', function () {
+    $action = BarcodeScannerHeaderAction::make()
+        ->qrbox(300, 200);
+
+    expect($action)->toBeInstanceOf(BarcodeScannerHeaderAction::class);
+});
+
+it('can set aspect ratio', function () {
+    $action = BarcodeScannerHeaderAction::make()
+        ->aspectRatio(1.777778);
+
+    expect($action)->toBeInstanceOf(BarcodeScannerHeaderAction::class);
+});
+
+it('can prefer back camera', function () {
+    $action = BarcodeScannerHeaderAction::make()
+        ->preferBackCamera();
+
+    expect($action)->toBeInstanceOf(BarcodeScannerHeaderAction::class);
+});
+
+it('can prefer front camera', function () {
+    $action = BarcodeScannerHeaderAction::make()
+        ->preferFrontCamera();
+
+    expect($action)->toBeInstanceOf(BarcodeScannerHeaderAction::class);
+});
+
+it('can set facing mode', function () {
+    $action = BarcodeScannerHeaderAction::make()
+        ->facingMode('environment');
+
+    expect($action)->toBeInstanceOf(BarcodeScannerHeaderAction::class);
+});
+
+it('can chain all configuration methods with afterScan', function () {
+    $action = BarcodeScannerHeaderAction::make()
+        ->fps(15)
+        ->qrbox(250, 250)
+        ->aspectRatio(1.5)
+        ->preferBackCamera()
+        ->supportedFormats([BarcodeFormat::QRCode])
+        ->afterScan(fn (string $value) => $value)
+        ->switchCameraLabel('Toggle')
+        ->cameraUnavailableMessage('No camera')
+        ->permissionDeniedMessage('Denied');
+
+    expect($action)->toBeInstanceOf(BarcodeScannerHeaderAction::class);
+});

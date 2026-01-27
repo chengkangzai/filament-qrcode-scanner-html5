@@ -2,6 +2,45 @@
 
 All notable changes to `filament-qrcode-scanner-html5` will be documented in this file.
 
+## v1.2.0 - TBD
+
+### Added
+- **Three-tier architecture** for progressive enhancement:
+  - Tier 1: Pure Alpine.js component (no framework dependencies)
+  - Tier 2: Standalone Livewire component (works without Filament)
+  - Tier 3: Enhanced Filament actions (existing API + new options)
+- **Configurable scanner options** for all tiers:
+  - `fps(int)` - Frames per second (1-30)
+  - `qrbox(int, ?int)` - Focus box dimensions
+  - `aspectRatio(float)` - Camera aspect ratio
+  - `facingMode(string)` - Camera facing mode ('user' or 'environment')
+  - `preferBackCamera()` - Convenience method for back camera
+  - `preferFrontCamera()` - Convenience method for front camera
+- **Browser event system** for Tier 1 component:
+  - `barcode-scanned` - Emitted when barcode is successfully scanned
+  - `barcode-scanner-error` - Emitted when scanner error occurs
+  - `barcode-scanner-ready` - Emitted when scanner is initialized
+  - `barcode-scanner-stopped` - Emitted when scanner is stopped
+- Standalone Livewire component (`<livewire:barcode-scanner />`) for non-Filament usage
+- Pure Alpine.js component (`<x-filament-qrcode-scanner-html5::barcode-scanner />`) for framework-agnostic usage
+- `HasScannerConfiguration` trait for DRY configuration across all tiers
+
+### Enhanced
+- `BarcodeScannerAction` now supports all new scanner configuration options
+- `BarcodeScannerHeaderAction` now supports all new scanner configuration options
+- Modal view refactored to use Tier 1 component internally
+
+### Internal
+- Extracted scanner logic to reusable Alpine.js component
+- Added comprehensive test coverage (68 tests, 130 assertions)
+- Improved code organization with shared configuration trait
+
+### Backward Compatibility
+- ✅ 100% backward compatible - all existing API methods unchanged
+- ✅ Default values match previous behavior
+- ✅ All new features are opt-in
+- ✅ Published views continue to work
+
 ## v1.1.0 - 2025-01-08
 
 ### Added

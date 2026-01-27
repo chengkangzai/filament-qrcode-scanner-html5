@@ -3,8 +3,10 @@
 namespace CCK\FilamentQrcodeScannerHtml5;
 
 use CCK\FilamentQrcodeScannerHtml5\Enums\BarcodeFormat;
+use CCK\FilamentQrcodeScannerHtml5\Livewire\BarcodeScanner;
 use Filament\Forms\Components\Component as FormComponent;
 use Illuminate\Support\ServiceProvider;
+use Livewire\Livewire;
 
 use function Livewire\on;
 
@@ -22,6 +24,8 @@ class BarcodeScannerServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../resources/views' => resource_path('views/vendor/filament-qrcode-scanner-html5'),
         ], 'filament-qrcode-scanner-html5-views');
+
+        Livewire::component('barcode-scanner', BarcodeScanner::class);
 
         $this->registerLivewireHook();
     }
