@@ -16,6 +16,13 @@ All notable changes to `filament-qrcode-scanner-html5` will be documented in thi
   - `facingMode(string)` - Camera facing mode ('user' or 'environment')
   - `preferBackCamera()` - Convenience method for back camera
   - `preferFrontCamera()` - Convenience method for front camera
+- **UI configuration options** for scanner controls:
+  - `controlButtonStyle(string)` - Switch camera button display style ('icon' or 'icon-text')
+  - `controlPosition(string)` - Controls alignment ('left', 'center', or 'right')
+  - `showCameraName(bool)` - Toggle camera name visibility
+  - `iconOnly()` - Convenience method for icon-only button
+  - `iconWithText()` - Convenience method for icon with text button
+  - `hideCameraName()` - Convenience method to hide camera name
 - **Browser event system** for Tier 1 component:
   - `barcode-scanned` - Emitted when barcode is successfully scanned
   - `barcode-scanner-error` - Emitted when scanner error occurs
@@ -32,7 +39,7 @@ All notable changes to `filament-qrcode-scanner-html5` will be documented in thi
 
 ### Internal
 - Extracted scanner logic to reusable Alpine.js component
-- Added comprehensive test coverage (68 tests, 130 assertions)
+- Added comprehensive test coverage (109 tests, 179 assertions)
 - Improved code organization with shared configuration trait
 
 ### Backward Compatibility

@@ -31,6 +31,9 @@
     supportedFormats: @js($supportedFormats),
     labels: @js($mergedLabels),
     showControls: @js($showControls),
+    buttonStyle: @js($mergedConfig['ui']['buttonStyle'] ?? 'icon-text'),
+    controlPosition: @js($mergedConfig['ui']['position'] ?? 'left'),
+    showCameraNameLabel: @js($mergedConfig['ui']['showCameraName'] ?? true),
     isScanning: false,
     isLoading: false,
     cameraError: false,
@@ -368,20 +371,27 @@
             </div>
         </div>
 
-        <div x-show="showControls" class="flex items-center justify-between">
+        <div x-show="showControls"
+            class="flex items-center gap-3"
+            :class="{
+                'justify-start': controlPosition === 'left',
+                'justify-center': controlPosition === 'center',
+                'justify-end': controlPosition === 'right'
+            }">
             <button type="button" x-show="cameras.length > 1" x-on:click="switchCamera()" x-bind:disabled="isLoading"
                 x-bind:aria-label="labels.switchCamera"
-                class="relative inline-grid grid-flow-col items-center justify-center gap-1 rounded-lg bg-white px-2 py-1.5 text-xs font-semibold text-gray-950 shadow-sm outline-none ring-1 ring-gray-950/10 transition duration-75 hover:bg-gray-50 focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-white/5 dark:text-white dark:ring-white/20 dark:hover:bg-white/10">
+                class="relative inline-grid grid-flow-col items-center justify-center rounded-lg bg-white px-2 py-1.5 text-xs font-semibold text-gray-950 shadow-sm outline-none ring-1 ring-gray-950/10 transition duration-75 hover:bg-gray-50 focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-white/5 dark:text-white dark:ring-white/20 dark:hover:bg-white/10"
+                :class="buttonStyle === 'icon' ? 'gap-0' : 'gap-1'">
                 <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                     stroke-width="1.5" stroke="currentColor" aria-hidden="true"
                     x-bind:class="{ 'animate-spin': isLoading }">
                     <path stroke-linecap="round" stroke-linejoin="round"
                         d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
                 </svg>
-                <span x-text="labels.switchCamera"></span>
+                <span x-show="buttonStyle === 'icon-text'" x-text="labels.switchCamera"></span>
             </button>
 
-            <span x-show="cameras.length > 1" class="text-xs text-gray-500 dark:text-gray-400"
+            <span x-show="cameras.length > 1 && showCameraNameLabel" class="text-xs text-gray-500 dark:text-gray-400"
                 x-text="currentCameraLabel" aria-live="polite"></span>
         </div>
     </div>

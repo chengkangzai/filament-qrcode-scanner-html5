@@ -189,7 +189,10 @@ it('can chain all configuration methods', function () {
         ->supportedFormats([BarcodeFormat::QRCode])
         ->switchCameraLabel('Toggle')
         ->cameraUnavailableMessage('No camera')
-        ->permissionDeniedMessage('Denied');
+        ->permissionDeniedMessage('Denied')
+        ->iconOnly()
+        ->controlPosition('center')
+        ->hideCameraName();
 
     expect($result)->toBe($this->instance);
 });
@@ -208,6 +211,11 @@ it('generates complete scanner config with all options', function () {
         'qrbox' => ['width' => 300, 'height' => 200],
         'aspectRatio' => 1.777778,
         'facingMode' => 'environment',
+        'ui' => [
+            'buttonStyle' => 'icon-text',
+            'position' => 'left',
+            'showCameraName' => true,
+        ],
     ]);
 });
 
@@ -216,5 +224,115 @@ it('generates minimal scanner config with defaults', function () {
 
     expect($config)->toBe([
         'fps' => 10,
+        'ui' => [
+            'buttonStyle' => 'icon-text',
+            'position' => 'left',
+            'showCameraName' => true,
+        ],
+    ]);
+});
+
+it('can set control button style to icon', function () {
+    $this->instance->controlButtonStyle('icon');
+    $config = $this->instance->exposeScannerConfig();
+
+    expect($config['ui']['buttonStyle'])->toBe('icon');
+});
+
+it('can set control button style to icon-text', function () {
+    $this->instance->controlButtonStyle('icon-text');
+    $config = $this->instance->exposeScannerConfig();
+
+    expect($config['ui']['buttonStyle'])->toBe('icon-text');
+});
+
+it('validates button style values', function () {
+    $this->instance->controlButtonStyle('invalid');
+})->throws(InvalidArgumentException::class, "Button style must be 'icon' or 'icon-text'");
+
+it('iconOnly convenience method sets icon style', function () {
+    $this->instance->iconOnly();
+    $config = $this->instance->exposeScannerConfig();
+
+    expect($config['ui']['buttonStyle'])->toBe('icon');
+});
+
+it('iconWithText convenience method sets icon-text style', function () {
+    $this->instance->iconWithText();
+    $config = $this->instance->exposeScannerConfig();
+
+    expect($config['ui']['buttonStyle'])->toBe('icon-text');
+});
+
+it('can set control position to left', function () {
+    $this->instance->controlPosition('left');
+    $config = $this->instance->exposeScannerConfig();
+
+    expect($config['ui']['position'])->toBe('left');
+});
+
+it('can set control position to center', function () {
+    $this->instance->controlPosition('center');
+    $config = $this->instance->exposeScannerConfig();
+
+    expect($config['ui']['position'])->toBe('center');
+});
+
+it('can set control position to right', function () {
+    $this->instance->controlPosition('right');
+    $config = $this->instance->exposeScannerConfig();
+
+    expect($config['ui']['position'])->toBe('right');
+});
+
+it('validates position values', function () {
+    $this->instance->controlPosition('top');
+})->throws(InvalidArgumentException::class, "Position must be 'left', 'center', or 'right'");
+
+it('can show camera name', function () {
+    $this->instance->showCameraName(true);
+    $config = $this->instance->exposeScannerConfig();
+
+    expect($config['ui']['showCameraName'])->toBe(true);
+});
+
+it('can hide camera name', function () {
+    $this->instance->showCameraName(false);
+    $config = $this->instance->exposeScannerConfig();
+
+    expect($config['ui']['showCameraName'])->toBe(false);
+});
+
+it('hideCameraName convenience method hides camera name', function () {
+    $this->instance->hideCameraName();
+    $config = $this->instance->exposeScannerConfig();
+
+    expect($config['ui']['showCameraName'])->toBe(false);
+});
+
+it('has correct default UI config', function () {
+    $config = $this->instance->exposeScannerConfig();
+
+    expect($config['ui'])->toBe([
+        'buttonStyle' => 'icon-text',
+        'position' => 'left',
+        'showCameraName' => true,
+    ]);
+});
+
+it('can chain UI configuration methods', function () {
+    $result = $this->instance
+        ->iconOnly()
+        ->controlPosition('center')
+        ->hideCameraName();
+
+    expect($result)->toBe($this->instance);
+
+    $config = $this->instance->exposeScannerConfig();
+
+    expect($config['ui'])->toBe([
+        'buttonStyle' => 'icon',
+        'position' => 'center',
+        'showCameraName' => false,
     ]);
 });

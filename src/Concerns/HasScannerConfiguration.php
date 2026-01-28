@@ -25,6 +25,12 @@ trait HasScannerConfiguration
 
     protected string $permissionDeniedMessage = 'Camera permission was denied. Please allow camera access to scan barcodes.';
 
+    protected string $controlButtonStyle = 'icon-text';
+
+    protected string $controlPosition = 'left';
+
+    protected bool $showCameraName = true;
+
     /**
      * Set the frames per second for scanning.
      *
@@ -157,13 +163,86 @@ trait HasScannerConfiguration
     }
 
     /**
+     * Set the control button display style.
+     *
+     * @param  string  $style  'icon' or 'icon-text'
+     */
+    public function controlButtonStyle(string $style): static
+    {
+        if (! in_array($style, ['icon', 'icon-text'])) {
+            throw new \InvalidArgumentException("Button style must be 'icon' or 'icon-text'");
+        }
+
+        $this->controlButtonStyle = $style;
+
+        return $this;
+    }
+
+    /**
+     * Set the control button to icon-only mode.
+     */
+    public function iconOnly(): static
+    {
+        return $this->controlButtonStyle('icon');
+    }
+
+    /**
+     * Set the control button to icon with text mode.
+     */
+    public function iconWithText(): static
+    {
+        return $this->controlButtonStyle('icon-text');
+    }
+
+    /**
+     * Set the control position alignment.
+     *
+     * @param  string  $position  'left', 'center', or 'right'
+     */
+    public function controlPosition(string $position): static
+    {
+        if (! in_array($position, ['left', 'center', 'right'])) {
+            throw new \InvalidArgumentException("Position must be 'left', 'center', or 'right'");
+        }
+
+        $this->controlPosition = $position;
+
+        return $this;
+    }
+
+    /**
+     * Set camera name visibility.
+     *
+     * @param  bool  $show  Whether to show camera name
+     */
+    public function showCameraName(bool $show = true): static
+    {
+        $this->showCameraName = $show;
+
+        return $this;
+    }
+
+    /**
+     * Hide the camera name label.
+     */
+    public function hideCameraName(): static
+    {
+        return $this->showCameraName(false);
+    }
+
+    /**
      * Get scanner configuration for html5-qrcode library.
      *
      * @return array{
      *     fps: int,
      *     qrbox?: array{width: int, height: int},
      *     aspectRatio?: float,
-     *     facingMode?: string
+     *     facingMode?: string,
+     *     ui: array{
+     *         buttonStyle: string,
+     *         position: string,
+     *         showCameraName: bool
+     *     }
      * }
      */
     protected function getScannerConfig(): array
@@ -186,6 +265,12 @@ trait HasScannerConfiguration
         if ($this->facingMode !== null) {
             $config['facingMode'] = $this->facingMode;
         }
+
+        $config['ui'] = [
+            'buttonStyle' => $this->controlButtonStyle,
+            'position' => $this->controlPosition,
+            'showCameraName' => $this->showCameraName,
+        ];
 
         return $config;
     }

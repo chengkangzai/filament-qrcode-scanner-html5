@@ -180,6 +180,9 @@ TextInput::make('barcode')
             ->preferFrontCamera()              // Force front/user camera
             ->facingMode('environment')        // Alternative: 'user' or 'environment'
             ->supportedFormats([...])          // Limit barcode formats
+            ->iconOnly()                       // Show only icon (no text label)
+            ->controlPosition('center')        // Align controls: 'left', 'center', 'right'
+            ->hideCameraName()                 // Hide camera name label
     )
 ```
 
@@ -193,6 +196,12 @@ TextInput::make('barcode')
 | `facingMode(string)` | 'user'\|'environment' | null | Camera facing mode |
 | `preferBackCamera()` | - | - | Alias for `facingMode('environment')` |
 | `preferFrontCamera()` | - | - | Alias for `facingMode('user')` |
+| `controlButtonStyle(string)` | 'icon'\|'icon-text' | 'icon-text' | Switch camera button display style |
+| `iconOnly()` | - | - | Convenience for `controlButtonStyle('icon')` |
+| `iconWithText()` | - | - | Convenience for `controlButtonStyle('icon-text')` |
+| `controlPosition(string)` | 'left'\|'center'\|'right' | 'left' | Controls alignment |
+| `showCameraName(bool)` | boolean | true | Show/hide camera name label |
+| `hideCameraName()` | - | - | Convenience for `showCameraName(false)` |
 
 ### Standalone Usage (Without Filament)
 

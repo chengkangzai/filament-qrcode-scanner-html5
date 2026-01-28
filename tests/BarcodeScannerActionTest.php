@@ -144,3 +144,71 @@ it('can chain all new configuration methods', function () {
 
     expect($action)->toBeInstanceOf(BarcodeScannerAction::class);
 });
+
+it('can set control button style', function () {
+    $action = BarcodeScannerAction::make()
+        ->controlButtonStyle('icon');
+
+    expect($action)->toBeInstanceOf(BarcodeScannerAction::class);
+});
+
+it('can use iconOnly convenience method', function () {
+    $action = BarcodeScannerAction::make()
+        ->iconOnly();
+
+    expect($action)->toBeInstanceOf(BarcodeScannerAction::class);
+});
+
+it('can use iconWithText convenience method', function () {
+    $action = BarcodeScannerAction::make()
+        ->iconWithText();
+
+    expect($action)->toBeInstanceOf(BarcodeScannerAction::class);
+});
+
+it('can set control position', function () {
+    $action = BarcodeScannerAction::make()
+        ->controlPosition('center');
+
+    expect($action)->toBeInstanceOf(BarcodeScannerAction::class);
+});
+
+it('can toggle camera name visibility', function () {
+    $action = BarcodeScannerAction::make()
+        ->showCameraName(false);
+
+    expect($action)->toBeInstanceOf(BarcodeScannerAction::class);
+});
+
+it('can use hideCameraName convenience method', function () {
+    $action = BarcodeScannerAction::make()
+        ->hideCameraName();
+
+    expect($action)->toBeInstanceOf(BarcodeScannerAction::class);
+});
+
+it('can chain UI configuration methods', function () {
+    $action = BarcodeScannerAction::make()
+        ->iconOnly()
+        ->controlPosition('center')
+        ->hideCameraName();
+
+    expect($action)->toBeInstanceOf(BarcodeScannerAction::class);
+});
+
+it('can chain all configuration methods including UI options', function () {
+    $action = BarcodeScannerAction::make()
+        ->fps(15)
+        ->qrbox(250, 250)
+        ->aspectRatio(1.5)
+        ->preferBackCamera()
+        ->supportedFormats([BarcodeFormat::QRCode])
+        ->switchCameraLabel('Toggle')
+        ->cameraUnavailableMessage('No camera')
+        ->permissionDeniedMessage('Denied')
+        ->iconOnly()
+        ->controlPosition('right')
+        ->showCameraName(true);
+
+    expect($action)->toBeInstanceOf(BarcodeScannerAction::class);
+});

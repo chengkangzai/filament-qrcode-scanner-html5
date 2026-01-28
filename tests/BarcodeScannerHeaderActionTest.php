@@ -172,3 +172,72 @@ it('can chain all configuration methods with afterScan', function () {
 
     expect($action)->toBeInstanceOf(BarcodeScannerHeaderAction::class);
 });
+
+it('can set control button style', function () {
+    $action = BarcodeScannerHeaderAction::make()
+        ->controlButtonStyle('icon');
+
+    expect($action)->toBeInstanceOf(BarcodeScannerHeaderAction::class);
+});
+
+it('can use iconOnly convenience method', function () {
+    $action = BarcodeScannerHeaderAction::make()
+        ->iconOnly();
+
+    expect($action)->toBeInstanceOf(BarcodeScannerHeaderAction::class);
+});
+
+it('can use iconWithText convenience method', function () {
+    $action = BarcodeScannerHeaderAction::make()
+        ->iconWithText();
+
+    expect($action)->toBeInstanceOf(BarcodeScannerHeaderAction::class);
+});
+
+it('can set control position', function () {
+    $action = BarcodeScannerHeaderAction::make()
+        ->controlPosition('center');
+
+    expect($action)->toBeInstanceOf(BarcodeScannerHeaderAction::class);
+});
+
+it('can toggle camera name visibility', function () {
+    $action = BarcodeScannerHeaderAction::make()
+        ->showCameraName(false);
+
+    expect($action)->toBeInstanceOf(BarcodeScannerHeaderAction::class);
+});
+
+it('can use hideCameraName convenience method', function () {
+    $action = BarcodeScannerHeaderAction::make()
+        ->hideCameraName();
+
+    expect($action)->toBeInstanceOf(BarcodeScannerHeaderAction::class);
+});
+
+it('can chain UI configuration methods', function () {
+    $action = BarcodeScannerHeaderAction::make()
+        ->iconOnly()
+        ->controlPosition('center')
+        ->hideCameraName();
+
+    expect($action)->toBeInstanceOf(BarcodeScannerHeaderAction::class);
+});
+
+it('can chain all configuration methods including UI options', function () {
+    $action = BarcodeScannerHeaderAction::make()
+        ->fps(15)
+        ->qrbox(250, 250)
+        ->aspectRatio(1.5)
+        ->preferBackCamera()
+        ->supportedFormats([BarcodeFormat::QRCode])
+        ->afterScan(fn (string $value) => $value)
+        ->switchCameraLabel('Toggle')
+        ->cameraUnavailableMessage('No camera')
+        ->permissionDeniedMessage('Denied')
+        ->iconOnly()
+        ->controlPosition('right')
+        ->showCameraName(true);
+
+    expect($action)->toBeInstanceOf(BarcodeScannerHeaderAction::class);
+});
