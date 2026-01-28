@@ -11,6 +11,14 @@ use Orchestra\Testbench\TestCase as Orchestra;
 
 abstract class TestCase extends Orchestra
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        // Share a ViewErrorBag with all views to prevent null error bag issues
+        view()->share('errors', app(\Illuminate\Support\ViewErrorBag::class));
+    }
+
     protected function getPackageProviders($app): array
     {
         return [
@@ -34,5 +42,8 @@ abstract class TestCase extends Orchestra
         ]);
 
         $app['config']->set('cache.default', 'array');
+
+        $app['config']->set('session.driver', 'array');
+        $app['config']->set('session.encrypt', false);
     }
 }

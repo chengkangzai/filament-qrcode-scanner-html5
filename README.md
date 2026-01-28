@@ -22,9 +22,9 @@ A Filament form action for scanning barcodes and QR codes using the device camer
 
 ## Requirements
 
-- PHP 8.1+
-- Laravel 10+
-- Filament 3.x
+- PHP 8.2+
+- Laravel 11.28+
+- Filament 4.x
 - Livewire 3.x
 
 ## Installation
@@ -36,6 +36,17 @@ composer require chengkangzai/filament-qrcode-scanner-html5
 ```
 
 The package will auto-register its service provider.
+
+### Upgrading from v1.x
+
+v2.0 requires Filament 4, PHP 8.2+, and Laravel 11.28+.
+
+**For Filament 3 support, use v1.x:**
+```bash
+composer require chengkangzai/filament-qrcode-scanner-html5 "^1.3"
+```
+
+See [UPGRADE.md](UPGRADE.md) for detailed migration instructions.
 
 ## Usage
 

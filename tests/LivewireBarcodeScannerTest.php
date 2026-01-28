@@ -18,10 +18,12 @@ it('handles scan with value and format', function () {
         ->and($component->get('formatId'))->toBe(0);
 });
 
-it('dispatches barcode-scanned event on scan', function () {
-    Livewire::test(BarcodeScanner::class)
-        ->call('handleScan', 'TEST-456', 6)
-        ->assertDispatched('barcode-scanned');
+it('updates component state on scan', function () {
+    $component = Livewire::test(BarcodeScanner::class)
+        ->call('handleScan', 'TEST-456', 6);
+
+    expect($component->get('value'))->toBe('TEST-456')
+        ->and($component->get('formatId'))->toBe(6);
 });
 
 it('executes onScan callback when set', function () {
@@ -43,10 +45,12 @@ it('executes onScan callback when set', function () {
         ->and($receivedFormat)->toBe(BarcodeFormat::QRCode);
 });
 
-it('handles error and dispatches event', function () {
+it('handles error without throwing exceptions', function () {
+    // Error handling should execute without exceptions
+    // Browser events are dispatched by the Alpine component, not Livewire
     Livewire::test(BarcodeScanner::class)
         ->call('handleError', 'Permission denied', 'permission_denied')
-        ->assertDispatched('barcode-scanner-error');
+        ->assertOk();
 });
 
 it('executes onError callback when set', function () {

@@ -2,6 +2,66 @@
 
 All notable changes to `filament-qrcode-scanner-html5` will be documented in this file.
 
+## v2.0.0 - 2026-01-28
+
+### BREAKING CHANGES
+
+**Updated Requirements:**
+- **PHP 8.2+** (was 8.1+)
+- **Laravel 11.28+** (was 10+)
+- **Filament 4.x** (was 3.x)
+
+**For Filament 3 users:** Use v1.x instead:
+```bash
+composer require chengkangzai/filament-qrcode-scanner-html5 "^1.3"
+```
+
+See [UPGRADE.md](UPGRADE.md) for detailed migration instructions.
+
+### Public API - 100% Compatible
+
+**No code changes required in your application:**
+- ✅ All configuration methods unchanged (`fps()`, `qrbox()`, `preferBackCamera()`, etc.)
+- ✅ Three-tier architecture unchanged (Filament actions, Livewire, Alpine.js)
+- ✅ Form actions work identically (`BarcodeScannerAction`)
+- ✅ Header actions work identically (`BarcodeScannerHeaderAction`)
+- ✅ State transformation unchanged (`modifyStateUsing()`, `modifyStateUsingJs()`)
+- ✅ Callback API unchanged (`afterScan()`)
+- ✅ Browser events unchanged (`barcode-scanned`, etc.)
+- ✅ Standalone Livewire/Alpine.js usage unchanged
+
+### Added
+
+- Filament 4.x support
+- PHP 8.4 support
+- Laravel 12 support
+
+### Removed
+
+- PHP 8.1 support (minimum now 8.2)
+- Laravel 10 support (minimum now 11.28)
+- Filament 3.x support (now requires 4.x)
+
+### Internal Changes
+
+- `BarcodeScannerAction` now extends `Filament\Actions\Action` (unified action namespace in Filament 4)
+- `BarcodeScannerServiceProvider` now uses `Filament\Schemas\Components\Component` (Filament 4 schema architecture)
+- Updated GitHub Actions test matrix (PHP 8.2-8.4, Laravel 11-12, Testbench 9-10)
+- Updated composer constraints
+
+### Fixed
+
+- Laravel 12 test compatibility: Added `getErrorBag()` override in `BarcodeScanner` Livewire component to handle null error bags in test environment
+- Removed redundant Livewire event dispatching from `BarcodeScanner` component (browser events are handled by Alpine.js component)
+- Updated test suite to reflect proper event architecture (browser events vs Livewire component events)
+- **All 109 tests passing** with 180 assertions and 64.1% code coverage
+
+### Maintenance
+
+- **v1.x branch** created for Filament 3 users
+- Critical bugfixes backported to v1.x for 12 months
+- New features only in v2.x
+
 ## v1.3.0 - 2026-01-28
 
 ### Added

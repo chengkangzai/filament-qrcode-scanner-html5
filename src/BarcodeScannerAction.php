@@ -5,7 +5,7 @@ namespace CCK\FilamentQrcodeScannerHtml5;
 use CCK\FilamentQrcodeScannerHtml5\Concerns\HasScannerConfiguration;
 use CCK\FilamentQrcodeScannerHtml5\Enums\BarcodeFormat;
 use Closure;
-use Filament\Forms\Components\Actions\Action;
+use Filament\Actions\Action;
 use Illuminate\Support\HtmlString;
 
 class BarcodeScannerAction extends Action

@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-A Filament 3 form action for scanning barcodes and QR codes using the device camera. Built with the [html5-qrcode](https://github.com/mebjas/html5-qrcode) JavaScript library.
+A Filament 4 form action for scanning barcodes and QR codes using the device camera. Built with the [html5-qrcode](https://github.com/mebjas/html5-qrcode) JavaScript library.
 
 **Package:** `chengkangzai/filament-qrcode-scanner-html5`
 **Namespace:** `CCK\FilamentQrcodeScannerHtml5`
@@ -50,7 +50,7 @@ The package uses a three-tier architecture for maximum flexibility:
 
 ### Core Components
 
-- **`BarcodeScannerAction`** (`src/BarcodeScannerAction.php`): Filament form action that extends `Filament\Forms\Components\Actions\Action`. Provides the suffix action button for text inputs with configuration methods for formats, labels, and value transformation.
+- **`BarcodeScannerAction`** (`src/BarcodeScannerAction.php`): Filament form action that extends `Filament\Actions\Action`. Provides the suffix action button for text inputs with configuration methods for formats, labels, and value transformation.
 
 - **`BarcodeScannerHeaderAction`** (`src/BarcodeScannerHeaderAction.php`): Filament header/page action that extends `Filament\Actions\Action`. Use this for standalone scanning (e.g., attendance check-in) with custom callbacks that can redirect or show notifications.
 
@@ -193,7 +193,7 @@ Tests use Pest with Orchestra Testbench. The `TestCase` class (`tests/TestCase.p
 
 ## Compatibility
 
-- PHP 8.1+
-- Laravel 10, 11, 12
-- Filament 3.x
+- PHP 8.2+
+- Laravel 11, 12
+- Filament 4.x
 - Livewire 3.x

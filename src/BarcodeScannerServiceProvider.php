@@ -4,7 +4,7 @@ namespace CCK\FilamentQrcodeScannerHtml5;
 
 use CCK\FilamentQrcodeScannerHtml5\Enums\BarcodeFormat;
 use CCK\FilamentQrcodeScannerHtml5\Livewire\BarcodeScanner;
-use Filament\Forms\Components\Component as FormComponent;
+use Filament\Schemas\Components\Component as FormComponent;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
 

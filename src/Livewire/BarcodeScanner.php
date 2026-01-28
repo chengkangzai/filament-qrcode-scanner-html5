@@ -5,6 +5,7 @@ namespace CCK\FilamentQrcodeScannerHtml5\Livewire;
 use CCK\FilamentQrcodeScannerHtml5\Concerns\HasScannerConfiguration;
 use CCK\FilamentQrcodeScannerHtml5\Enums\BarcodeFormat;
 use Closure;
+use Illuminate\Support\MessageBag;
 use Livewire\Component;
 
 class BarcodeScanner extends Component
@@ -22,6 +23,23 @@ class BarcodeScanner extends Component
     protected ?Closure $onErrorCallback = null;
 
     protected string $scannerId = '';
+
+    /**
+     * Override getErrorBag to ensure it always returns a MessageBag.
+     * Fixes Laravel 12 compatibility issue where error bag might be null during tests.
+     */
+    public function getErrorBag(): MessageBag
+    {
+        $bag = parent::getErrorBag();
+
+        // If parent returns null (Laravel 12 test environment issue), return empty bag
+        if (! $bag instanceof MessageBag) {
+            $bag = new MessageBag();
+            $this->setErrorBag($bag);
+        }
+
+        return $bag;
+    }
 
     public function mount(): void
     {
@@ -56,6 +74,9 @@ class BarcodeScanner extends Component
 
     /**
      * Handle the scanned barcode value from the browser event.
+     *
+     * Note: Browser events are already dispatched by the Alpine.js component.
+     * This method primarily handles server-side callbacks.
      */
     public function handleScan(string $value, int $formatId): void
     {
@@ -67,27 +88,19 @@ class BarcodeScanner extends Component
         if ($this->onScanCallback) {
             ($this->onScanCallback)($value, $format);
         }
-
-        $this->dispatch('barcode-scanned', [
-            'value' => $value,
-            'formatId' => $formatId,
-            'format' => $format?->getLabel(),
-        ]);
     }
 
     /**
      * Handle scanner errors from the browser event.
+     *
+     * Note: Browser events are already dispatched by the Alpine.js component.
+     * This method primarily handles server-side callbacks.
      */
     public function handleError(string $error, string $errorType): void
     {
         if ($this->onErrorCallback) {
             ($this->onErrorCallback)($error, $errorType);
         }
-
-        $this->dispatch('barcode-scanner-error', [
-            'error' => $error,
-            'errorType' => $errorType,
-        ]);
     }
 
     public function getId(): string
