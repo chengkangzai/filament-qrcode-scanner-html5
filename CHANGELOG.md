@@ -2,7 +2,31 @@
 
 All notable changes to `filament-qrcode-scanner-html5` will be documented in this file.
 
-## v1.2.0 - TBD
+## v1.3.0 - 2026-01-28
+
+### Added
+- **UI configuration options** for scanner controls:
+  - `controlButtonStyle(string)` - Switch camera button display style ('icon' or 'icon-text')
+  - `controlPosition(string)` - Controls alignment ('left', 'center', or 'right')
+  - `showCameraName(bool)` - Toggle camera name visibility
+  - `iconOnly()` - Convenience method for icon-only button
+  - `iconWithText()` - Convenience method for icon with text button
+  - `hideCameraName()` - Convenience method to hide camera name
+
+### Enhanced
+- Scanner controls now support flexible visual configurations
+- Alpine.js component supports dynamic button styles and control positioning
+
+### Tests
+- Added 41 new tests for UI configuration options
+- All 109 tests passing (179 assertions)
+
+### Backward Compatibility
+- ✅ 100% backward compatible
+- ✅ Default values match previous UI behavior (icon-text, left, show camera name)
+- ✅ All new features are opt-in
+
+## v1.2.0 - 2025-01-XX
 
 ### Added
 - **Three-tier architecture** for progressive enhancement:
@@ -16,13 +40,6 @@ All notable changes to `filament-qrcode-scanner-html5` will be documented in thi
   - `facingMode(string)` - Camera facing mode ('user' or 'environment')
   - `preferBackCamera()` - Convenience method for back camera
   - `preferFrontCamera()` - Convenience method for front camera
-- **UI configuration options** for scanner controls:
-  - `controlButtonStyle(string)` - Switch camera button display style ('icon' or 'icon-text')
-  - `controlPosition(string)` - Controls alignment ('left', 'center', or 'right')
-  - `showCameraName(bool)` - Toggle camera name visibility
-  - `iconOnly()` - Convenience method for icon-only button
-  - `iconWithText()` - Convenience method for icon with text button
-  - `hideCameraName()` - Convenience method to hide camera name
 - **Browser event system** for Tier 1 component:
   - `barcode-scanned` - Emitted when barcode is successfully scanned
   - `barcode-scanner-error` - Emitted when scanner error occurs
@@ -39,7 +56,6 @@ All notable changes to `filament-qrcode-scanner-html5` will be documented in thi
 
 ### Internal
 - Extracted scanner logic to reusable Alpine.js component
-- Added comprehensive test coverage (109 tests, 179 assertions)
 - Improved code organization with shared configuration trait
 
 ### Backward Compatibility
