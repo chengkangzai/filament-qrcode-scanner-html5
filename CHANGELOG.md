@@ -2,22 +2,6 @@
 
 All notable changes to `filament-qrcode-scanner-html5` will be documented in this file.
 
-## v2.0.0-alpha.2 - 2026-01-28
-
-### Fixed
-
-**CRITICAL:** Fixed `BadMethodCallException: Method getComponent does not exist on BarcodeScannerAction`
-
-- Changed `getComponent()` to `getSchemaComponent()` for Filament 4 compatibility
-- Suffix actions now work correctly in production
-- All 109 tests passing
-
-This was a critical bug in v2.0.0-alpha that prevented the package from working in production. **Please upgrade from v2.0.0-alpha to v2.0.0-alpha.2 immediately.**
-
-## v2.0.0-alpha - 2026-01-28
-
-**⚠️ DEPRECATED:** This version has a critical bug. Use **v2.0.0-alpha.2** instead.
-
 ## v2.0.0 - 2026-01-28
 
 ### BREAKING CHANGES
@@ -67,6 +51,7 @@ See [UPGRADE.md](UPGRADE.md) for detailed migration instructions.
 
 ### Fixed
 
+- **CRITICAL:** Fixed `BadMethodCallException: Method getComponent does not exist` - Changed to `getSchemaComponent()` for Filament 4 compatibility
 - Laravel 12 test compatibility: Added `getErrorBag()` override in `BarcodeScanner` Livewire component to handle null error bags in test environment
 - Removed redundant Livewire event dispatching from `BarcodeScanner` component (browser events are handled by Alpine.js component)
 - Updated test suite to reflect proper event architecture (browser events vs Livewire component events)
@@ -77,6 +62,20 @@ See [UPGRADE.md](UPGRADE.md) for detailed migration instructions.
 - **v1.x branch** created for Filament 3 users
 - Critical bugfixes backported to v1.x for 12 months
 - New features only in v2.x
+
+---
+
+## Pre-release History
+
+### v2.0.0-alpha.2 - 2026-01-28
+
+Fixed critical production bug from v2.0.0-alpha. Changed `getComponent()` to `getSchemaComponent()` for Filament 4 compatibility.
+
+### v2.0.0-alpha - 2026-01-28
+
+Initial alpha release for Filament 4. **Deprecated due to critical bug** - use v2.0.0 instead.
+
+---
 
 ## v1.3.0 - 2026-01-28
 
