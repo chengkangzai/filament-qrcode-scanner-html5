@@ -42,7 +42,7 @@ class BarcodeScannerAction extends Action
             ->modalSubmitAction(false)
             ->modalCancelActionLabel(__('Close'))
             ->modalContent(function (): HtmlString {
-                $component = $this->getComponent();
+                $component = $this->getSchemaComponent();
                 $statePath = $component?->getStatePath();
 
                 return new HtmlString(
