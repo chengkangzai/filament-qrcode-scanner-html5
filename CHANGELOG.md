@@ -2,6 +2,28 @@
 
 All notable changes to `filament-qrcode-scanner-html5` will be documented in this file.
 
+## v2.1.0 - 2026-03-02
+
+### Added
+
+- **Filament 5 support** - Now supports both Filament 4.x and 5.x from the same codebase
+- **Livewire 4 support** - Compatible with both Livewire 3.x and 4.x
+- Expanded CI test matrix covering Filament 4/5 x Livewire 3/4 x PHP 8.2-8.4 x Laravel 11/12
+- Compatibility verification test suite (`Filament5CompatibilityTest`)
+
+### Changed
+
+- Widened `composer.json` constraints: `filament/filament: ^4.0|^5.0`, `livewire/livewire: ^3.0|^4.0`
+- Made test `TestCase` service provider loading cross-version resilient with `class_exists()` checks
+
+### Backward Compatibility
+
+- 100% backward compatible with existing Filament 4 installations
+- No code changes required in your application
+- All existing APIs unchanged
+
+---
+
 ## v2.0.0 - 2026-01-28
 
 ### BREAKING CHANGES

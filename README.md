@@ -24,8 +24,8 @@ A Filament form action for scanning barcodes and QR codes using the device camer
 
 - PHP 8.2+
 - Laravel 11.28+
-- Filament 4.x
-- Livewire 3.x
+- Filament 4.x or 5.x
+- Livewire 3.x or 4.x
 
 ## Installation
 

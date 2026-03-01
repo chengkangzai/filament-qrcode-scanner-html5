@@ -3,9 +3,6 @@
 namespace CCK\FilamentQrcodeScannerHtml5\Tests;
 
 use CCK\FilamentQrcodeScannerHtml5\BarcodeScannerServiceProvider;
-use Filament\FilamentServiceProvider;
-use Filament\Forms\FormsServiceProvider;
-use Filament\Support\SupportServiceProvider;
 use Livewire\LivewireServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 
@@ -21,13 +18,23 @@ abstract class TestCase extends Orchestra
 
     protected function getPackageProviders($app): array
     {
-        return [
+        $providers = [
             LivewireServiceProvider::class,
-            SupportServiceProvider::class,
-            FilamentServiceProvider::class,
-            FormsServiceProvider::class,
             BarcodeScannerServiceProvider::class,
         ];
+
+        // Filament 4 registers these separately; Filament 5 may consolidate
+        foreach ([
+            \Filament\Support\SupportServiceProvider::class,
+            \Filament\FilamentServiceProvider::class,
+            \Filament\Forms\FormsServiceProvider::class,
+        ] as $provider) {
+            if (class_exists($provider)) {
+                $providers[] = $provider;
+            }
+        }
+
+        return $providers;
     }
 
     protected function getEnvironmentSetUp($app): void
